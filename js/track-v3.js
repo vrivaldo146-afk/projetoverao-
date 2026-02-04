@@ -98,7 +98,7 @@
           e && 'function' == typeof e && e(null, n);
         } else {
           var t = new XMLHttpRequest();
-          t.open('GET', funnelytics.cfOrigin + '/settings/' + funnelytics.project),
+          t.open('GET.html', funnelytics.cfOrigin + '/settings/' + funnelytics.project),
             t.addEventListener('load', function () {
               var n = JSON.parse(t.responseText);
               if (t.status >= 200 && t.status < 300) {
@@ -133,7 +133,7 @@
         // If settings are not loaded - fetch them
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', funnelytics.cfOrigin + '/settings/' + funnelytics.project);
+            xhr.open('GET.html', funnelytics.cfOrigin + '/settings/' + funnelytics.project);
     
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
@@ -188,7 +188,7 @@
         n && clearTimeout(n),
           (funnelytics.projects._inputListeners[e.target] = setTimeout(function () {
             var n = new XMLHttpRequest();
-            n.open('POST', funnelytics.origin + '/set-attributes'),
+            n.open('POST.html', funnelytics.origin + '/set-attributes'),
               n.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'),
               n.send(
                 'd=' + encodeURIComponent(JSON.stringify({ session: funnelytics.session, project: funnelytics.project, attributes: { email: e.target.value } }))
@@ -234,7 +234,7 @@
         );
       },
       addParamsToLink(link, paramsArr) {
-        const url = new URL(link);
+        const url = new URL(link.html);
         paramsArr.forEach((param) => {
           if (!url.searchParams.has(param.key)) {
             url.searchParams.set(param.key, param.value);
@@ -376,7 +376,7 @@
           navigator.sendBeacon(funnelytics.origin + '/events/trigger', u);
         } else {
           var c = new XMLHttpRequest();
-          c.open('POST', funnelytics.origin + '/events/trigger'),
+          c.open('POST.html', funnelytics.origin + '/events/trigger'),
             c.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'),
             c.addEventListener('load', function () {
               if (((i = JSON.parse(c.responseText)), c.status >= 200 && c.status < 300)) {
@@ -432,7 +432,7 @@
               : void 0
           );
         var i = new XMLHttpRequest();
-        i.open('POST', funnelytics.origin + '/trackers/set'),
+        i.open('POST.html', funnelytics.origin + '/trackers/set'),
           i.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'),
           i.addEventListener('load', function () {
             if (((t = JSON.parse(i.responseText)), i.status >= 200 && i.status < 300)) {
@@ -451,7 +451,7 @@
       },
       sendUserIdToFunnelytics: function(userId) {
         const req = new XMLHttpRequest();
-        req.open('POST', funnelytics.origin + '/set-attributes');
+        req.open('POST.html', funnelytics.origin + '/set-attributes');
         req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         req.send(
           'd=' + encodeURIComponent(JSON.stringify({ session: funnelytics.session, project: funnelytics.project, attributes: { internal_user_id: userId } }))
@@ -486,7 +486,7 @@
 
         if (!funnelytics.client.isBot()) {
           var e = new XMLHttpRequest();
-          e.open('POST', funnelytics.origin + '/sessions'),
+          e.open('POST.html', funnelytics.origin + '/sessions'),
             e.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'),
             e.addEventListener('load', function () {
               if (e.status >= 200 && e.status < 300) {
@@ -517,7 +517,7 @@
             funnelytics.isSPA && funnelytics.steps.length > 0 && (referrer = funnelytics.steps[funnelytics.steps.length - 1]),
               funnelytics.steps.push(window.location.href);
             var n = new XMLHttpRequest();
-            n.open('POST', funnelytics.origin + '/steps'),
+            n.open('POST.html', funnelytics.origin + '/steps'),
               n.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'),
               n.addEventListener('load', function () {
                 if (n.status >= 200 && n.status < 300) {
@@ -1065,7 +1065,7 @@
 
       const src = iframe.getAttribute('src');
       if (src.indexOf('enablejsapi') === -1) {
-        const playerUrl = new URL(src);
+        const playerUrl = new URL(src.html);
         playerUrl.searchParams.append("enablejsapi", "1");
         iframe.setAttribute("src", playerUrl.toString());
       }
@@ -1103,7 +1103,7 @@
   // Vimeo
   function loadVimeoTracking() {
     if (typeof Vimeo === 'undefined' || typeof Vimeo.Player === 'undefined') {
-      loadScript('https://player.vimeo.com/api/player.js', setupVimeoVideos);
+      loadScript('../player.vimeo.com/api/player.js', setupVimeoVideos);
     } else {
       setupVimeoVideos();
     }
@@ -1135,7 +1135,7 @@
   // Wistia
   function loadWistiaTracking() {
     if (typeof Wistia === 'undefined') {
-      loadScript('https://fast.wistia.net/assets/external/E-v1.js', setupWistiaTracking);
+      loadScript('../fast.wistia.net/assets/external/E-v1.js', setupWistiaTracking);
     } else {
       setupWistiaTracking();
     }
